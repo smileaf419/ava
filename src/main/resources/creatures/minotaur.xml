@@ -1,0 +1,167 @@
+<!-- 
+Creature Configuration file version 2.0
+Author: Stephen Leaf <smileaf@me.com>
+
+Purpose of this file is to describe monsters, their abilities, 
+	buffs & debuffs as well as the items they drop
+	
+	All Values are scaled by the Monster's level
+		With the exception of stats when set to static.
+ -->
+<Creature name="Minotaur" isChampion="false" exp="7">
+	<Lore></Lore>
+	<Loot>
+		<!-- Type: item | armor | ability | weapon-->
+		<!-- Slot: helm, chest, legs, boots, MH, OH, neck, acc, trinket 1 & 2 -->
+		<Item name="Scale" type="item" slot="0">
+			<Drop low="1" high="3" chance="80" />
+			<!-- Attack * Scaling + Power -->
+			<Battle power="2" scaling="1" />
+			<Effects>
+				<!-- If damage & healing are true
+					the damage done will be the same as the healing -->
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+			</Effects>
+			<Gold>2</Gold>
+			<!-- modifyby: fixed | relative | percent -->
+			<StatEffects modifyby="percent">
+				<Stamina>0</Stamina>
+				<Attack>0</Attack>
+				<Defense>0</Defense>
+				<Speed>0</Speed>
+				<Magic>0</Magic>
+			</StatEffects>
+			<Description>A scale from the Lizardman.</Description>
+		</Item>
+		<Item name="Leather Helm" type="armor" slot="1">
+			<Drop low="1" high="1" chance="15" />
+			<Battle power="0" scaling="1" />
+			<Effects>
+				<Damage>false</Damage>
+				<Healing>false</Healing>
+			</Effects>
+			<Gold>3</Gold>
+			<StatEffects modifyby="fixed">
+				<Stamina>2</Stamina>
+				<Attack>0</Attack>
+				<Defense>2</Defense>
+				<Speed>0</Speed>
+				<Magic>0</Magic>
+			</StatEffects>
+		</Item>
+		<Item name="Gold">
+			<Drop low="4" high="8" chance="100" />
+		</Item>
+	</Loot>
+	<BaseStats>
+		<HP>15</HP>
+		<Stamina>15</Stamina>
+		<Attack>6</Attack>
+		<Defense>5</Defense>
+		<Speed>5</Speed>
+		<MP>0</MP>
+		<Magic>0</Magic>
+	</BaseStats>
+	<Stats>
+		<HP>5</HP>
+		<Stamina>5</Stamina>
+		<Attack>7</Attack>
+		<Defense>5</Defense>
+		<Speed>5</Speed>
+		<MP>1</MP>
+		<Magic>1</Magic>
+	</Stats>
+	<Floors low="4" high="9" />
+	<Abilities>
+		<Ability name="Thrust" level="1" slot="1">
+			<Effects>
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+				<StatusEffect>Buff</StatusEffect>
+				<ChanceToApply>85</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+			</Effects>
+			<Battle power="8" scaling="0.8" accuracy="90"/>
+			<Physical>true</Physical>
+			<!-- distance: Ranged | Melee -->
+			<Distance>Melee</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="0" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="0" scaling="1" cost="0" />
+			<Dialog>
+				<Attack>%M thrusts their spear at you for %Damage damage.</Attack>
+				<Missed>You dodge %M's thrust!</Missed>
+			</Dialog>
+			<Buff name="Haste">
+				<Duration>1</Duration>
+				<Battle power="0" scaling="1" />
+				<Physical>false</Physical>
+				<Effects>
+					<Damage>false</Damage>
+					<Healing>false</Healing>
+					<Chance>100</Chance>
+					<OnTurnEnd>false</OnTurnEnd>
+					<LoseTurn>false</LoseTurn>
+					<Protection></Protection>
+				</Effects>
+				<StatEffects modifyby="percent">
+					<Stamina>0</Stamina>
+					<Attack>0</Attack>
+					<Defense>0</Defense>
+					<Speed>1.5</Speed>
+					<Magic>0</Magic>
+					<MagicDefense>0</MagicDefense>
+				</StatEffects>
+				<Dialog>
+					<Buff>%M's speed quickens!</Buff>
+				</Dialog>
+			</Buff>
+		</Ability>
+		<Ability name="Strike" level="12" slot="2">
+			<Effects>
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+				<StatusEffect></StatusEffect>
+				<ChanceToApply>0</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+			</Effects>
+			<Battle power="10" scaling="0.9" accuracy="90"/>
+			<Physical>true</Physical>
+			<Distance>Melee</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="0" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="1" scaling="5" cost="1" />
+			<Dialog>
+				<Attack>Using their spear %M strikes you for %Damage damage.</Attack>
+				<Missed>%M's attack missed!</Missed>
+			</Dialog>
+		</Ability>
+		<Ability name="Leap" level="15" slot="3">
+			<Effects>
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+				<StatusEffect></StatusEffect>
+				<ChanceToApply>100</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+				<OnMiss>takedamage</OnMiss>
+			</Effects>
+			<Battle power="10" scaling="1" accuracy="80"/>
+			<Physical>true</Physical>
+			<!-- distance: Ranged | Melee -->
+			<Distance>Ranged</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="1" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="0" scaling="1" cost="0" />
+			<Dialog>
+				<Attack>%M leaps onto you dealing %Damage damage.</Attack>
+				<Missed>%M leaps at you, but misses!</Missed>
+				<Failed>%M takes %Damage damage by landing wrong.</Failed>
+				<Charging>%M leaps into the air</Charging>
+			</Dialog>
+		</Ability>
+	</Abilities>
+</Creature>

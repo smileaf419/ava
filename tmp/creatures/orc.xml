@@ -1,0 +1,180 @@
+<!-- 
+Creature Configuration file version 2.0
+Author: Stephen Leaf <smileaf@me.com>
+
+Purpose of this file is to describe monsters, their abilities, 
+	buffs & debuffs as well as the items they drop
+	
+	All Values are scaled by the Monster's level
+		With the exception of stats when set to static.
+ -->
+<Creature name="Orc" isChampion="false" exp="7">
+	<Lore></Lore>
+	<Loot>
+		<!-- Type: item | armor | ability | weapon-->
+		<!-- Slot: helm, chest, legs, boots, MH, OH, neck, acc, trinket 1 & 2 -->
+		<Item name="Leather Chest" type="armor" slot="2">
+			<Drop low="1" high="1" chance="15" />
+			<Battle power="0" scaling="1" />
+			<Effects>
+				<Damage>false</Damage>
+				<Healing>false</Healing>
+			</Effects>
+			<Gold>3</Gold>
+			<StatEffects modifyby="fixed">
+				<Stamina>5</Stamina>
+				<Attack>2</Attack>
+				<Defense>4</Defense>
+				<Speed>2</Speed>
+				<Magic>1</Magic>
+			</StatEffects>
+		</Item>
+		<Item name="Leather Boots" type="armor" slot="4">
+			<Drop low="1" high="1" chance="15" />
+			<Battle power="0" scaling="1" />
+			<Effects>
+				<Damage>false</Damage>
+				<Healing>false</Healing>
+			</Effects>
+			<Gold>3</Gold>
+			<StatEffects modifyby="fixed">
+				<Stamina>2</Stamina>
+				<Attack>0</Attack>
+				<Defense>2</Defense>
+				<Speed>2</Speed>
+				<Magic>0</Magic>
+			</StatEffects>
+		</Item>
+		<Item name="Gold">
+			<Drop low="4" high="8" chance="100" />
+		</Item>
+	</Loot>
+	<BaseStats>
+		<HP>15</HP>
+		<Stamina>15</Stamina>
+		<Attack>6</Attack>
+		<Defense>5</Defense>
+		<Speed>5</Speed>
+		<MP>0</MP>
+		<Magic>0</Magic>
+	</BaseStats>
+	<Stats>
+		<HP>5</HP>
+		<Stamina>5</Stamina>
+		<Attack>7</Attack>
+		<Defense>5</Defense>
+		<Speed>5</Speed>
+		<MP>1</MP>
+		<Magic>1</Magic>
+	</Stats>
+	<Floors low="9" high="15" />
+	<Abilities>
+		<Ability name="Regen" level="1" slot="1">
+			<Effects>
+				<Damage>false</Damage>
+				<Healing>false</Healing>
+				<StatusEffect>Buff</StatusEffect>
+				<ChanceToApply>85</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+			</Effects>
+			<Battle power="8" scaling="0.8" accuracy="90"/>
+			<Physical>true</Physical>
+			<!-- distance: Ranged | Melee -->
+			<Distance>Melee</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="0" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="0" scaling="1" cost="0" />
+			<Dialog>
+			</Dialog>
+			<Buff name="Regen">
+				<Duration>1</Duration>
+				<Battle power="0" scaling="1" />
+				<Physical>false</Physical>
+				<Effects>
+					<Damage>false</Damage>
+					<Healing>true</Healing>
+					<Chance>100</Chance>
+					<OnTurnEnd>false</OnTurnEnd>
+					<LoseTurn>false</LoseTurn>
+					<Protection></Protection>
+				</Effects>
+				<StatEffects modifyby="percent">
+					<Stamina>0</Stamina>
+					<Attack>0</Attack>
+					<Defense>0</Defense>
+					<Speed>0</Speed>
+					<Magic>0</Magic>
+					<MagicDefense>0</MagicDefense>
+				</StatEffects>
+				<Dialog>
+					<Buff>%M regenerates %Healing health!</Buff>
+				</Dialog>
+			</Buff>
+		</Ability>
+		<Ability name="Smash" level="12" slot="2">
+			<Effects>
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+				<StatusEffect></StatusEffect>
+				<ChanceToApply>0</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+			</Effects>
+			<Battle power="10" scaling="0.9" accuracy="90"/>
+			<Physical>true</Physical>
+			<Distance>Melee</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="0" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="1" scaling="5" cost="1" />
+			<Dialog>
+				<Attack>Using their club %M slams you for %Damage damage.</Attack>
+				<Missed>%M's attack missed!</Missed>
+			</Dialog>
+		</Ability>
+		<Ability name="Enrage" level="15" slot="3">
+			<Effects>
+				<Damage>true</Damage>
+				<Healing>false</Healing>
+				<StatusEffect>Buff</StatusEffect>
+				<ChanceToApply>100</ChanceToApply>
+				<LoseTurn>false</LoseTurn>
+				<OnMiss></OnMiss>
+			</Effects>
+			<Battle power="10" scaling="1" accuracy="80"/>
+			<Physical>true</Physical>
+			<!-- distance: Ranged | Melee -->
+			<Distance>Ranged</Distance>
+			<!-- In # of turns -->
+			<Limits chargeup="0" cooldown="0" />
+			<!-- round(Level / Scaling) * Cost + Base -->
+			<Cost base="2" scaling="3" cost="1" />
+			<Dialog>
+			</Dialog>
+			<Buff name="Enrage">
+				<Duration>3</Duration>
+				<Battle power="0" scaling="1" />
+				<Physical>false</Physical>
+				<Effects>
+					<Damage>false</Damage>
+					<Healing>false</Healing>
+					<Chance>100</Chance>
+					<OnTurnEnd>false</OnTurnEnd>
+					<LoseTurn>false</LoseTurn>
+					<Protection></Protection>
+				</Effects>
+				<StatEffects modifyby="percent">
+					<Stamina>0</Stamina>
+					<Attack>1.5</Attack>
+					<Defense>0</Defense>
+					<Speed>0</Speed>
+					<Magic>0</Magic>
+					<MagicDefense>0</MagicDefense>
+				</StatEffects>
+				<Dialog>
+					<Buff>%M is enraged!</Buff>
+				</Dialog>
+			</Buff>
+		</Ability>
+	</Abilities>
+</Creature>
