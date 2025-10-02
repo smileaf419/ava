@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Created-By: Apache Maven 3.8.6
-Built-By: smileaf
-Build-Jdk: 18.0.2
-
