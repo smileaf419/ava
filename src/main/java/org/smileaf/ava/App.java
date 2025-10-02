@@ -32,7 +32,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class App {
 	public static final String AUTHOR = "smileaf";
 	public static final float VERSION = 0.3f;
-	public static final String COPYRIGHT = "2019-2020";
+	public static final String COPYRIGHT = "2019-2025";
 
 	public static final String gameDir = System.getProperty("user.home") + "/.ava/";
 
