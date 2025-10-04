@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-//import org.jline.terminal.Terminal;
-//import org.jline.terminal.TerminalBuilder;
-//import org.jline.utils.NonBlockingReader;
-
 import org.smileaf.Color;
 import org.smileaf.Input;
 import org.smileaf.game.Dialog;
@@ -178,7 +174,15 @@ public class App {
 				setCursor(0,game.map.maxX*2+3);
 				Dialog.p(new Color(CreatureMap.LAYERNAMES[Math.round(game.map.z() / 15)]).bg(CreatureMap.MAPCOLORS[Math.round(game.map.z() / 15)]));
 				Dialog.pln(" Floor: "+game.map.z()+" Monsters Remaining: " + game.map.population());
-				App.dialog.println("(C)haracter, (I)nventory, (S)ave, (R)est or (Q)uit");
+				App.dialog.print("(C)haracter, (I)nventory, (S)ave, (R)est or (Q)uit");
+				if (game.map.canDown() || game.map.canUp()) {
+					App.dialog.print("; Stairs available: ");
+					if (game.map.canDown())
+						App.dialog.print("(D)own");
+					else
+						App.dialog.print("(U)p");
+				}
+				App.dialog.println(  "                            ");
 				//App.dialog.print("What would you like to do? ");
 				input: while (true) {
 					KeyStroke key = terminal.readInput();
