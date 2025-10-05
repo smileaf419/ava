@@ -46,7 +46,7 @@ public class Game implements Serializable {
 		Dialog.newLine();
 		player.isMale = gender.toLowerCase().equals("m");
 		player.isFemale = gender.toLowerCase().equals("f");
-		player.isNonbinary = gender.toLowerCase().equals("n");
+		player.isNonBinary = gender.toLowerCase().equals("n");
 		
 		// Set Default Job
 		player.setJob((Job)App.resource.getResourcesByNameAndType("Freelancer", Resource.JOB).get(0));
