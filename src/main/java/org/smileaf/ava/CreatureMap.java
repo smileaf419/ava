@@ -77,12 +77,7 @@ public class CreatureMap extends Map implements Serializable {
 		}
 		this.map = new Creature[this.dx][this.dy];
 		
-		// if we end up with a population over the capacity, set it to the maxCapacity.
-		if (population > this.dx * this.dy * this.maxCapacity)
-			this.population = (int) (this.dx * this.dy * this.maxCapacity);
-		else
-			this.population = population;
-		this.populate();
+		this.populate(this.population);
 		this.addBoss();
 		ArrayList<Resource> champions = this.filter(storage, c -> ((Creature) c).type == Creature.CHAMPION);
 		if (champions.size() > 0) {
@@ -91,16 +86,24 @@ public class CreatureMap extends Map implements Serializable {
 			}
 		}
 	}
-	public void populate() {
+	public void populate(int pop) {
+		// if we end up with a population over the capacity, set it to the maxCapacity.
+		if (pop > this.dx * this.dy * this.maxCapacity)
+			pop = (int) (this.dx * this.dy * this.maxCapacity);
+		else if (pop < 0) {
+			this.population = 0;
+			return;
+		}
+
 		int mx = 0;
 		int my = 0;
 		int fails = 0;
-		System.out.println("Populating a " + this.dx + "/" + this.dy + " grid with " + this.population + " Monsters.");
-		Utils.progressPercentage("Populating", 0, this.population);
+		System.out.println("Populating a " + this.dx + "/" + this.dy + " grid with " + pop + " Monsters.");
+		Utils.progressPercentage("Populating", 0, pop);
 		
 		// Add in # of Monsters
-		int pop = this.population;
-		for (int m = 0; m < pop; m++) {
+		int popAdded = 0;
+		for (int m = 0; m < pop - this.population; m++) {
 			mx = (byte)Utils.random(0, this.dx);
 			my = (byte)Utils.random(0, this.dy);
 			if (mx == this.x && my == this.y ||
@@ -109,18 +112,19 @@ public class CreatureMap extends Map implements Serializable {
 				m--;
 				fails++;
 			} else {
+				popAdded++;
 				fails = 0;
 				try {
 					map[mx][my] = this.randomCreature();
 				} catch (MonsterLoadException e) {
 					e.printStackTrace();
 				}
-				Utils.progressPercentage("Populating", m, this.population);
+				Utils.progressPercentage("Populating", m, pop);
 			}
 			if (fails > 10) {
 				m++;
 				fails=0;
-				this.population--;
+				this.population = this.population + popAdded;
 			}
 		}
 		Utils.progressPercentage("Populating", this.population, this.population);
@@ -160,7 +164,7 @@ public class CreatureMap extends Map implements Serializable {
 			System.out.println(e.getMessage());
 			System.exit(1);	// Exit
 		}
-		this.populate();				// Add Monsters to our array
+		this.populate(pop);				// Add Monsters to our array
 		this.addBoss();					// Add a Boss monster.
 	}
 	
@@ -170,6 +174,7 @@ public class CreatureMap extends Map implements Serializable {
 	
 	public void monsterDies(int x, int y) {
 		this.population--;
+		if (this.population < 0) this.population = 0;
 		this.map[x][y] = CreatureMap.NOMOB;
 	}
 	

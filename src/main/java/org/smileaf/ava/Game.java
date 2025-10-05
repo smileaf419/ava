@@ -42,9 +42,11 @@ public class Game implements Serializable {
 		String name = App.dialog.getInputString("Hero's Name?: ");
 		player = new Player(name, App.resource);
 		App.dialog.setPlayer(player);
-		String gender = App.dialog.getInput("Are you (M)ale or (F)emale?: ");
+		String gender = App.dialog.getInput("Are you (M)ale, (F)emale or (N)onbinary?: ");
 		Dialog.newLine();
 		player.isMale = gender.toLowerCase().equals("m");
+		player.isFemale = gender.toLowerCase().equals("f");
+		player.isNonbinary = gender.toLowerCase().equals("n");
 		
 		// Set Default Job
 		player.setJob((Job)App.resource.getResourcesByNameAndType("Freelancer", Resource.JOB).get(0));
@@ -76,8 +78,8 @@ public class Game implements Serializable {
 		// Check if we're at our cap, if not, add to the population and regenerate.
 		App.dialog.println("Monster cap: " + (int)(this.map.dx() * this.map.dy() * this.map.maxCapacity));
 		if (pop * 1.2f < this.map.dx() * this.map.dy() * this.map.maxCapacity) {
-			this.map.setPopulation((int)(pop*1.2f));
-			this.map.populate();
+			//this.map.setPopulation();
+			this.map.populate((int)(pop*1.2f));
 		}
 		this.regenMap();
 		this.player.heal();

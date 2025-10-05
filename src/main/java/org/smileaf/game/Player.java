@@ -32,9 +32,11 @@ public class Player extends Participant implements Serializable {
 	private ArrayList<LootItem> loot;
 	
 	/**
-	 * True: Male; False: Female
+	 * What pronoun do we want?
 	 */
-	public boolean isMale = true;
+	public boolean isMale = true;		// He/him
+	public boolean isFemale = false;	// She/her
+	public boolean isNonBinary = false;	// They/them
 	/**
 	 * Gold amount.
 	 */

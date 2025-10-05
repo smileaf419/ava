@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Document;
 
 import com.googlecode.lanterna.terminal.Terminal;
+import com.googlecode.lanterna.*;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.input.KeyStroke;
 
@@ -124,12 +125,15 @@ public class Dialog implements Serializable {
 		if (mon != null)
 			dialog = dialog.replaceAll("%M", mon.name);
 		if (mc != null) {
-			dialog = dialog.replaceAll("%Player", mc.name);
-			// TODO: Genderize Dialog relating to the player.
 			if (mc.isMale)
 				dialog = dialog.replaceAll("%G\\[(.*?)\\|.*?\\]", "$1");
+			else if (mc.isFemale)
+				dialog = dialog.replaceAll("%G\\[.*?\\|(.*?)\\|.*?\\]", "$1");
 			else
-				dialog = dialog.replaceAll("%G\\[.*?\\|(.*?)\\]", "$1");
+				dialog = dialog.replaceAll("%G\\[.*?\\|.*?\\|(.*?)\\]", "$1");
+
+			dialog = dialog.replaceAll("%Player", mc.name);
+			// TODO: Genderize Dialog relating to the player.
 		}
 		//return dialog;
 		return dialog.replaceAll("%Damage", new Color(Integer.toString(damage)).fg(Color.RED).toString())
@@ -178,8 +182,7 @@ public class Dialog implements Serializable {
 	}
 	
 	public void storyDialog(String s) {
-		/*
-		newLine();
+		/*newLine();
 		char[] chars = this.format(s).toCharArray();
 		try {
 			Terminal terminal = TerminalBuilder.builder()
@@ -217,8 +220,7 @@ public class Dialog implements Serializable {
 			terminal.close();
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-		*/
+		}*/
 	}
 	/**
 	 * Gets input
